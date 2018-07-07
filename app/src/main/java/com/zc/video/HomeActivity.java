@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import com.zc.video.base.BaseActivity;
 
 public class HomeActivity extends BaseActivity {
-
+//hello
     private FragmentManager mFragmentManager;
     private Fragment mHomeFragment;
 
