@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".DetailListFragment">
 
-    <com.hejunlin.imooc_supervideo.widget.PullLoadRecyclerView
+    <com.zc.video.widget.PullLoadRecyclerView
         android:id="@+id/pullloadRecyclerView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"

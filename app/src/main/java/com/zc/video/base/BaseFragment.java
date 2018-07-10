@@ -33,4 +33,7 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initView();
     protected abstract void initData();
 
+    protected <T extends View> T bindViewId(int resId){
+        return (T) mContentView.findViewById(resId);
+    }
 }

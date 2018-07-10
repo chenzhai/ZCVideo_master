@@ -7,7 +7,7 @@ import com.zc.video.mode.Site;
 
 public class SiteApi {
 
-    public void onGetChannelAlbums(Context context, int pageNo, int pageSize, int siteId, int channelId, OnGetChannelAlbumListener listener) {
+    public static void onGetChannelAlbums(Context context, int pageNo, int pageSize, int siteId, int channelId, OnGetChannelAlbumListener listener) {
         switch (siteId) {
             case Site.LETV:
                 new LetvApi().onGetChannelAlbums(new Channel(channelId, context), pageNo, pageSize, listener);

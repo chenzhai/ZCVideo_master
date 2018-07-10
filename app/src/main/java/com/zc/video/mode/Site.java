@@ -14,15 +14,14 @@ public class Site {
     private Context mContext;
     public static final int MAX_SITE = 2;
 
-    public Site(int id, Context context) {
+    public Site(int id) {
         siteId = id;
-        mContext = context;
         switch (siteId) {
             case SOHU:
-                siteName = mContext.getResources().getString(R.string.site_sohu);
+                siteName = "搜狐视频";
                 break;
             case LETV:
-                siteName = mContext.getResources().getString(R.string.site_letv);
+                siteName = "乐视视频";
                 break;
         }
     }

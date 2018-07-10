@@ -36,7 +36,7 @@ public class ErrorInfo {
     String url; //请求url
 
     public ErrorInfo(int siteId, int type) {
-        site = new Site(siteId, AppManager.getContext());
+        site = new Site(siteId);
     }
 
     public String getUrl() {

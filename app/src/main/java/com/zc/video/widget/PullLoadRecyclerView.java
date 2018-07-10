@@ -47,28 +47,33 @@ public class PullLoadRecyclerView extends LinearLayout {
     private void initView(Context context) {
         mContext = context;
         View view = LayoutInflater.from(mContext).inflate(R.layout.pull_loadmore_layout, null);
-        mSwipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_green_dark,null),
-                getResources().getColor(android.R.color.holo_blue_dark,null),
-                getResources().getColor(android.R.color.holo_orange_dark,null));
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        //设置刷新时控件颜色渐变
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_dark, android.R.color.holo_blue_dark, android.R.color.holo_orange_dark);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayoutOnRefresh());
 
-        mRecyclerView = view.findViewById(R.id.recyclerview);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //处理RecyclerView
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        mRecyclerView.setHasFixedSize(true); //设置固定大小
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());//使用默认动画
         mRecyclerView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return mIsLoadMore || mIsRefresh;
+                return mIsRefresh || mIsLoadMore;
             }
         });
-        mRecyclerView.setVerticalScrollBarEnabled(false);
-        mRecyclerView.addOnScrollListener(new RecyclerViewOnScroll());
 
+        mRecyclerView.setVerticalScrollBarEnabled(false);//隐藏滚动条
+        mRecyclerView.addOnScrollListener(new RecyclerViewOnScroll());
         mFootView = view.findViewById(R.id.footer_view);
-        TextView textView = mFootView.findViewById(R.id.iv_load_text);
+        //ImageView imageView = (ImageView) mFootView.findViewById(R.id.iv_load_img);
+        //imageView.setBackgroundResource(R.drawable.imooc_loading);
+        //mAnimationDrawable = (AnimationDrawable) imageView.getBackground();
+
+        TextView textView = (TextView) mFootView.findViewById(R.id.tv_load_text);
         mFootView.setVisibility(View.GONE);
-        this.addView(view);
+        //view 包含swipeRefreshLayout, RecyclerView, FootView
+        this.addView(view);//
     }
 
     public void setGridLayout(int spanCount) {
@@ -113,19 +118,17 @@ public class PullLoadRecyclerView extends LinearLayout {
                 }
             }
 
-            if(mSwipeRefreshLayout.isEnabled()) {
-                mSwipeRefreshLayout.setEnabled(true);
-            } else {
-                mSwipeRefreshLayout.setEnabled(false);
-            }
-
-            if(!mIsLoadMore
-                    && totalCount == lastItem
+            if (!mIsLoadMore
+                    && totalCount - 1 == lastItem
                     && mSwipeRefreshLayout.isEnabled()
                     && !mIsRefresh
                     && (dx > 0 || dy > 0)) {
                 mIsLoadMore = true;
+                //在加载更多时,禁止mSwipeRefreshLayout使用
+                mSwipeRefreshLayout.setEnabled(false);
                 loadMoreData();
+            } else {
+                mSwipeRefreshLayout.setEnabled(true);
             }
         }
     }

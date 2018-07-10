@@ -35,8 +35,8 @@ public class Album implements Parcelable {
         }
     };
 
-    public Album(int siteId, Context context) {
-        site = new Site(siteId, context);
+    public Album(int siteId) {
+        site = new Site(siteId);
     }
 
     public String getAlbumId() {
@@ -176,7 +176,7 @@ public class Album implements Parcelable {
         this.horImgUrl = in.readString();
         this.albumDesc = in.readString();
         this.tip = in.readString();
-        this.site = new Site(in.readInt(), context);
+        this.site = new Site(in.readInt());
         this.isCompleted = in.readByte() != 0;
         this.letvStyle = in.readString();
     }
